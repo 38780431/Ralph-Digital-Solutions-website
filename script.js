@@ -341,26 +341,34 @@ document.addEventListener('keydown', event => {
 
 const installButton = document.querySelector('#installAppButton');
 const installStatus = document.querySelector('#installAppStatus');
+const installPopup = document.querySelector('#installPopup');
+const installPopupClose = document.querySelector('#installPopupClose');
 let installPrompt = null;
+let installPopupTimer = null;
 const isInstalled = () => window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
 const isAppleMobile = () => /iPhone|iPad|iPod/.test(navigator.userAgent)
   || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
-if (installButton && installStatus) {
-  if (isInstalled()) {
-    installButton.hidden = true;
-    installStatus.textContent = 'Ralph Digital Solutions is already installed.';
-  }
+const hideInstallPopup = () => {
+  if (!installPopup) return;
+  window.clearTimeout(installPopupTimer);
+  installPopup.classList.remove('is-visible');
+  installPopup.hidden = true;
+};
 
+if (installButton && installStatus && installPopup && installPopupClose) {
   window.addEventListener('beforeinstallprompt', event => {
     event.preventDefault();
     installPrompt = event;
-    installStatus.textContent = 'Your browser can install this app. Select Install this website to continue.';
+    installStatus.textContent = 'Your browser can install this app. Tap Install app to continue.';
   });
+
+  installPopupClose.addEventListener('click', hideInstallPopup);
 
   installButton.addEventListener('click', async () => {
     if (isInstalled()) {
       installStatus.textContent = 'Ralph Digital Solutions is already installed.';
+      installPopupTimer = window.setTimeout(hideInstallPopup, 4000);
       return;
     }
 
@@ -368,22 +376,37 @@ if (installButton && installStatus) {
       installStatus.textContent = isAppleMobile()
         ? 'In Safari, tap Share, then Add to Home Screen.'
         : 'Open your browser menu and choose Install app or Add to Home Screen.';
+      window.clearTimeout(installPopupTimer);
+      installPopupTimer = window.setTimeout(hideInstallPopup, 8000);
       return;
     }
 
     const prompt = installPrompt;
     installPrompt = null;
-    await prompt.prompt();
-    const { outcome } = await prompt.userChoice;
-    installStatus.textContent = outcome === 'accepted'
-      ? 'Ralph Digital Solutions was installed on your device.'
-      : 'Installation was cancelled. You can try again from your browser menu.';
+    window.clearTimeout(installPopupTimer);
+    try {
+      await prompt.prompt();
+      const { outcome } = await prompt.userChoice;
+      installStatus.textContent = outcome === 'accepted'
+        ? 'Ralph Digital Solutions was installed on your device.'
+        : 'Installation was cancelled. You can try again from your browser menu.';
+      installPopupTimer = window.setTimeout(hideInstallPopup, outcome === 'accepted' ? 2000 : 5000);
+    } catch (error) {
+      console.error('The browser install prompt could not be opened:', error);
+      installStatus.textContent = 'Open your browser menu and choose Install app or Add to Home Screen.';
+      installPopupTimer = window.setTimeout(hideInstallPopup, 8000);
+    }
   });
 
   window.addEventListener('appinstalled', () => {
-    installButton.hidden = true;
-    installStatus.textContent = 'Ralph Digital Solutions is installed on your device.';
+    hideInstallPopup();
   });
+
+  if (!isInstalled()) {
+    installPopup.hidden = false;
+    requestAnimationFrame(() => installPopup.classList.add('is-visible'));
+    installPopupTimer = window.setTimeout(hideInstallPopup, 8000);
+  }
 }
 
 if ('serviceWorker' in navigator && location.protocol !== 'file:') {

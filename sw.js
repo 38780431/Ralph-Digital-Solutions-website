@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ralph-digital-solutions-shell-v1';
+const CACHE_NAME = 'ralph-digital-solutions-shell-v2';
 const APP_SHELL = [
   './',
   './index.html',

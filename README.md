@@ -31,7 +31,7 @@ https://38780431.github.io/Ralph-Digital-Solutions-website/
 
 GitHub Pages serves static files only. The contact form hands off to the visitor's email app or WhatsApp and does not store submissions on a server.
 
-Visitors can choose **Install this website** near the top of the page. Supported browsers show their install prompt; on iPhone or iPad, open the site in Safari and use **Share → Add to Home Screen**. Installation availability depends on the browser and device.
+Visitors who have not installed the app see a dismissible install popup for about eight seconds on each visit. Tapping **Install app** opens the browser's install prompt when available; on iPhone or iPad, open the site in Safari and use **Share → Add to Home Screen**. Installation availability depends on the browser and device.
 
 ## Local preview
 Open `index.html` in a browser. For a more reliable local preview, run a simple static server from this folder, for example:
