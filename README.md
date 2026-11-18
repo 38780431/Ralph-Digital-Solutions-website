@@ -22,14 +22,13 @@ The contact form currently prepares an email using the visitor's default email a
 The embedded OpenStreetMap view is centered on Nairobi as a general service area; it does not identify an exact office address.
 
 ## Publish with GitHub Pages
-1. Create a GitHub repository named `ralph-digital-solutions` (or use another repository name).
-2. Upload the contents of this folder to the repository root. Make sure `index.html` is at the root, not inside an extra nested folder.
-3. In the repository, open **Settings → Pages**.
-4. Under **Build and deployment**, choose **Deploy from a branch**.
-5. Select branch **main** and folder **/(root)**, then save.
-6. Wait for GitHub Pages to deploy. The published URL will be shown in Settings → Pages.
+This public repository is configured to deploy the static site for free with GitHub Actions. The workflow at `.github/workflows/pages.yml` publishes the site files whenever changes are pushed to `main`; it can also be started manually from the **Actions** tab.
 
-If you want the exact address `https://<your-username>.github.io/`, name the repository `<your-username>.github.io` instead. Otherwise the site URL will include the repository name.
+If GitHub Pages is not enabled yet, open **Settings → Pages** and set **Build and deployment → Source** to **GitHub Actions**. The published site URL is:
+
+https://38780431.github.io/Ralph-Digital-Solutions-website/
+
+GitHub Pages serves static files only. The contact form hands off to the visitor's email app or WhatsApp and does not store submissions on a server.
 
 ## Local preview
 Open `index.html` in a browser. For a more reliable local preview, run a simple static server from this folder, for example:
