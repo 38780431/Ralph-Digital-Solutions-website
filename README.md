@@ -8,6 +8,7 @@ A responsive, multi-section single-page website built with plain HTML, CSS and J
 - `script.js` — mobile navigation, current year and contact form email/WhatsApp hand-offs
 - The home hero includes a six-item capabilities slideshow with manual controls and reduced-motion support.
 - The guided chat assistant answers common questions locally in the browser; it has no AI service or server connection.
+- The site can be installed as a progressive web app on supported browsers and caches its core pages for offline access.
 - `assets/favicon.svg` — simple brand icon
 
 The service catalog covers IT support, web and online-store work, training, device care, networking, data, security basics, business productivity, branding, search visibility, automation and peripherals. The FAQ section explains the enquiry process and important limitations.
@@ -29,6 +30,8 @@ If GitHub Pages is not enabled yet, open **Settings → Pages** and set **Build 
 https://38780431.github.io/Ralph-Digital-Solutions-website/
 
 GitHub Pages serves static files only. The contact form hands off to the visitor's email app or WhatsApp and does not store submissions on a server.
+
+Visitors can choose **Install this website** near the top of the page. Supported browsers show their install prompt; on iPhone or iPad, open the site in Safari and use **Share → Add to Home Screen**. Installation availability depends on the browser and device.
 
 ## Local preview
 Open `index.html` in a browser. For a more reliable local preview, run a simple static server from this folder, for example:

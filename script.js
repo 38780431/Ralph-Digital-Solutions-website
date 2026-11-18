@@ -338,3 +338,58 @@ document.addEventListener('keydown', event => {
     assistantLauncher.focus();
   }
 });
+
+const installButton = document.querySelector('#installAppButton');
+const installStatus = document.querySelector('#installAppStatus');
+let installPrompt = null;
+const isInstalled = () => window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+const isAppleMobile = () => /iPhone|iPad|iPod/.test(navigator.userAgent)
+  || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+if (installButton && installStatus) {
+  if (isInstalled()) {
+    installButton.hidden = true;
+    installStatus.textContent = 'Ralph Digital Solutions is already installed.';
+  }
+
+  window.addEventListener('beforeinstallprompt', event => {
+    event.preventDefault();
+    installPrompt = event;
+    installStatus.textContent = 'Your browser can install this app. Select Install this website to continue.';
+  });
+
+  installButton.addEventListener('click', async () => {
+    if (isInstalled()) {
+      installStatus.textContent = 'Ralph Digital Solutions is already installed.';
+      return;
+    }
+
+    if (!installPrompt) {
+      installStatus.textContent = isAppleMobile()
+        ? 'In Safari, tap Share, then Add to Home Screen.'
+        : 'Open your browser menu and choose Install app or Add to Home Screen.';
+      return;
+    }
+
+    const prompt = installPrompt;
+    installPrompt = null;
+    await prompt.prompt();
+    const { outcome } = await prompt.userChoice;
+    installStatus.textContent = outcome === 'accepted'
+      ? 'Ralph Digital Solutions was installed on your device.'
+      : 'Installation was cancelled. You can try again from your browser menu.';
+  });
+
+  window.addEventListener('appinstalled', () => {
+    installButton.hidden = true;
+    installStatus.textContent = 'Ralph Digital Solutions is installed on your device.';
+  });
+}
+
+if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(error => {
+      console.error('Service worker registration failed:', error);
+    });
+  });
+}

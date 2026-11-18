@@ -1305,3 +1305,54 @@
     grid-column: auto;
   }
 }
+
+.install-app-block {
+  margin-top: 16px;
+}
+
+.install-app-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--cyan);
+  font: 700 10px var(--font);
+  cursor: pointer;
+}
+
+.install-app-button:hover {
+  text-decoration: underline;
+}
+
+.install-app-button:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 4px;
+}
+
+.install-app-button[hidden] {
+  display: none;
+}
+
+.install-app-status {
+  max-width: 370px;
+  margin: 8px 0 0;
+  color: #aab8ca;
+  font-size: 10px;
+  line-height: 1.6;
+}
+
+.install-app-status:empty {
+  display: none;
+}
+
+.install-app-block + .hero-proof {
+  margin-top: 34px;
+}
+
+@media (max-width: 700px) {
+  .install-app-block + .hero-proof {
+    margin-top: 24px;
+  }
+}
