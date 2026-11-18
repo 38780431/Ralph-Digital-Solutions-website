@@ -1,6 +1,6 @@
 /* Contact destinations are configured here; WhatsApp uses country code + number, digits only. */
 const SITE_CONFIG = {
-  email: 'jnyadera@yahoo.com',
+  email: 'jnyadwera@yahoo.com',
   whatsapp: '254758946742'
 };
 
