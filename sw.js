@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ralph-digital-solutions-shell-v2';
+const CACHE_NAME = 'ralph-digital-solutions-shell-v3';
 const APP_SHELL = [
   './',
   './index.html',
@@ -9,7 +9,7 @@ const APP_SHELL = [
   './assets/app-icon-180.png',
   './assets/app-icon-192.png',
   './assets/app-icon-512.png'
-];
+].map(path => new Request(new URL(path, self.registration.scope), { cache: 'reload' }));
 
 self.addEventListener('install', event => {
   event.waitUntil(
