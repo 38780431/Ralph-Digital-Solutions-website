@@ -8,6 +8,7 @@ A responsive, multi-section single-page website built with plain HTML, CSS and J
 - `script.js` — mobile navigation, current year and contact form email/WhatsApp hand-offs
 - The home hero includes a six-item capabilities slideshow with manual controls and reduced-motion support.
 - The guided chat assistant answers common questions locally in the browser; it has no AI service or server connection.
+- The work section includes a clearly labeled sample project concept, not a completed client project or a measured result.
 - `assets/favicon.svg` — simple brand icon
 
 The service catalog covers IT support, web and online-store work, training, device care, networking, data, security basics, business productivity, branding, search visibility, automation and peripherals. The FAQ section explains the enquiry process and important limitations.
